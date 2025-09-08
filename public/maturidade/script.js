@@ -503,7 +503,24 @@ function renderOverallScore(results) {
     
     // Atualizar cor do círculo baseado no nível
     const scoreCircle = document.querySelector('.score-circle');
-    scoreCircle.style.background = `linear-gradient(135deg, ${results.maturityLevel.color}, ${results.maturityLevel.color}dd)`;
+    if (scoreCircle) {
+        scoreCircle.style.background = `linear-gradient(135deg, ${results.maturityLevel.color}, ${results.maturityLevel.color}dd)`;
+    }
+
+    // Atualizar CTA com níveis atual e desejável
+    try {
+        const currentSpan = document.getElementById('currentLevelX');
+        const desiredSpan = document.getElementById('desiredLevelY');
+        if (currentSpan && desiredSpan) {
+            const levels = assessmentData.maturityLevels;
+            const currentIndex = levels.findIndex(l => l.level === results.maturityLevel.level);
+            const desired = currentIndex >= 0 && currentIndex < levels.length - 1
+                ? levels[currentIndex + 1].level
+                : levels[levels.length - 1].level;
+            currentSpan.textContent = results.maturityLevel.level;
+            desiredSpan.textContent = desired;
+        }
+    } catch {}
 }
 
 // Renderizar cards de domínios
@@ -1341,7 +1358,18 @@ function updateDomainCardsWithShortDescriptions() {
     }
 }
 
-// Relatório simples via janela de impressão (sem jsPDF)
+// Utilitário: converter imagem para DataURL
+async function imageToDataURL(path) {
+    const resp = await fetch(path);
+    const blob = await resp.blob();
+    return await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+    });
+}
+
+// Relatório com logomarca, gráficos e rodapé completo (pronto para impressão)
 async function generatePDF() {
     if (!currentState.results) {
         alert("Nenhum resultado disponível para gerar relatório.");
@@ -1352,6 +1380,20 @@ async function generatePDF() {
 
     try {
         const results = currentState.results;
+        const levels = assessmentData.maturityLevels;
+        const currentIndex = levels.findIndex(l => l.level === results.maturityLevel.level);
+        const desiredLevel = currentIndex >= 0 && currentIndex < levels.length - 1
+            ? levels[currentIndex + 1].level
+            : levels[levels.length - 1].level;
+
+        // Capturar gráficos como imagens
+        const radarCanvas = document.getElementById('radarChart');
+        const barCanvas = document.getElementById('barChart');
+        const radarImg = radarCanvas ? radarCanvas.toDataURL('image/png') : null;
+        const barImg = barCanvas ? barCanvas.toDataURL('image/png') : null;
+
+        // Logomarca
+        const logoDataUrl = await imageToDataURL('/image/logomarca_transp-red.png');
 
         const formatDomainScores = () => Object.values(results.domainScores)
             .map(d => {
@@ -1371,31 +1413,58 @@ async function generatePDF() {
         <html lang=\"pt-BR\"><head><meta charset=\"utf-8\" />
         <title>Relatório de Maturidade</title>
         <style>
-        body { font-family: Arial, Helvetica, sans-serif; color: #000; background: #fff; padding: 24px; }
-        h1 { font-size: 20px; margin: 0 0 8px; }
-        h2 { font-size: 16px; margin: 20px 0 8px; }
-        p, li { font-size: 13px; line-height: 1.5; }
+        :root { --pink: #EB33CC; --text: #111; --muted: #555; }
+        body { font-family: Arial, Helvetica, sans-serif; color: var(--text); background: #ffffff; padding: 28px; }
+        header { display: flex; justify-content: center; margin-bottom: 12px; }
+        header img { height: 160px; }
+        h1 { font-size: 22px; margin: 8px 0 4px; }
+        h2 { font-size: 16px; margin: 18px 0 8px; color: #222; }
+        p, li { font-size: 13px; line-height: 1.55; }
         ul { padding-left: 18px; margin: 0; }
-        .muted { color: #555; }
-        hr { border: none; border-top: 1px solid #ddd; margin: 16px 0; }
-        @media print { body { padding: 0; } }
+        .muted { color: var(--muted); }
+        .card { border: 1px solid #ececec; border-radius: 10px; padding: 14px 16px; background: #fff; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .charts img { max-width: 380px; width: 100%; border: 1px solid #eee; border-radius: 8px; padding: 6px; background: #fff; }
+        .footer { margin-top: 24px; padding-top: 12px; border-top: 1px solid #e5e5e5; font-size: 13px; }
+        .cta { font-size: 14px; margin-bottom: 8px; }
+        .contact { white-space: pre-line; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+        @media print {
+          body { padding: 20mm; }
+          .grid { grid-template-columns: 1fr 1fr; }
+          .charts img { break-inside: avoid; }
+        }
         </style></head>
         <body>
+            <header><img src="${logoDataUrl}" alt="PP Tech" /></header>
             <h1>Relatório de Maturidade em Segurança da Informação</h1>
             <p class=\"muted\">Data: ${new Date().toLocaleDateString('pt-BR')}</p>
-            <hr />
-            <h2>Resultado Geral</h2>
-            <p><strong>Pontuação:</strong> ${results.overallScore}/5.0</p>
-            <p><strong>Nível de Maturidade:</strong> ${results.maturityLevel.level}</p>
-            <p><strong>Descrição:</strong> ${results.maturityLevel.description}</p>
+            <div class="card">
+              <h2>Resultado Geral</h2>
+              <p><strong>Pontuação:</strong> ${results.overallScore}/5.0</p>
+              <p><strong>Nível atual:</strong> ${results.maturityLevel.level}</p>
+              <p><strong>Descrição:</strong> ${results.maturityLevel.description}</p>
+            </div>
+            <h2>Gráficos</h2>
+            <div class="grid charts">
+              <div>${radarImg ? `<img src="${radarImg}" alt="Radar por Domínio" />` : ''}</div>
+              <div>${barImg ? `<img src="${barImg}" alt="Comparativo de Pontuações" />` : ''}</div>
+            </div>
             <h2>Pontuações por Domínio</h2>
             <ul>${formatDomainScores()}</ul>
             <h2>Top 5 Prioridades</h2>
             <ul>${formatTopGaps()}</ul>
             <h2>Principais Recomendações</h2>
             <ul>${formatRecommendations()}</ul>
-            <hr />
-            <p class=\"muted\">Gerado automaticamente pela ferramenta de avaliação (HTML imprimível).</p>
+            <div class="footer">
+              <p class="cta">Quer ver como sua empresa pode sair do nível <strong>${results.maturityLevel.level}</strong> para <strong>${desiredLevel}</strong>? Entre em contato.</p>
+              <div class="contact">
+contato@pereirapelizzari.tech
++55 11 3995 6390
+Avenida Moema 170
+12º andar - conjunto 125
+04077-020
+              </div>
+            </div>
         </body></html>`;
 
         // Iframe oculto para imprimir (evita pop-ups)
@@ -1415,9 +1484,9 @@ async function generatePDF() {
             iframe.contentWindow.focus();
             iframe.contentWindow.print();
             setTimeout(() => document.body.removeChild(iframe), 1000);
-        }, 300);
+        }, 400);
     } catch (error) {
-        console.error('Erro ao gerar relatório simples:', error);
+        console.error('Erro ao gerar relatório para impressão:', error);
         alert('Erro ao gerar relatório. Tente novamente.');
     } finally {
         hideLoading();
