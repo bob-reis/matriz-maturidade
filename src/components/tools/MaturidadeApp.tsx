@@ -92,7 +92,7 @@ export default function MaturidadeApp() {
       <section id="resultsSection" className="hidden mt-10 space-y-8">
         {/* Logo do relatório (também usada no PDF) */}
         <div className="flex justify-center">
-          <img src="/image/logomarca_transp.png" alt="PP Tech" className="h-24 w-auto object-contain" />
+          <img src="/image/logomarca_transp-red.png" alt="PP Tech" className="h-48 w-auto object-contain" />
         </div>
         <div className="card-cyber p-8 rounded text-center">
           <div className="mx-auto w-32 h-32 rounded-full border-2 border-primary flex items-center justify-center glow-primary">
