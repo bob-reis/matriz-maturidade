@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
-  --primary: #00ff41;
+  --primary: #EB33CC;
   --secondary: #0066cc;
   --accent: #ff6b35;
   --dark: #0d1117;
@@ -28,7 +28,8 @@ body {
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--dark); }
 ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #00cc36; }
+/* Slightly darker shade of the primary pink for hover */
+::-webkit-scrollbar-thumb:hover { background: #d62ec0; }
 
 /* Glow Effects */
 .glow-primary { box-shadow: 0 0 10px var(--primary); }
@@ -52,7 +53,7 @@ body {
 .btn-cyber::before {
   content: '';
   position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(235, 51, 204, 0.2), transparent);
   transition: left 0.5s;
 }
 .btn-cyber:hover::before { left: 100%; }
@@ -61,11 +62,11 @@ body {
 /* Card Styles */
 .card-cyber {
   background: rgba(13, 17, 23, 0.8);
-  border: 1px solid rgba(0, 255, 65, 0.3);
+  border: 1px solid rgba(235, 51, 204, 0.3);
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
 }
-.card-cyber:hover { border-color: var(--primary); box-shadow: 0 10px 30px rgba(0, 255, 65, 0.2); transform: translateY(-5px); }
+.card-cyber:hover { border-color: var(--primary); box-shadow: 0 10px 30px rgba(235, 51, 204, 0.2); transform: translateY(-5px); }
 
 /* Loading Animation */
 .loading-dots::after { content: ''; animation: dots 1.5s steps(5, end) infinite; }
@@ -83,5 +84,4 @@ body {
 
 /* Utility compatibility for variable + opacity combos used in the app */
 .bg-dark\/60 { background-color: rgba(13,17,23,0.6) !important; }
-.border-primary\/20 { border-color: rgba(0,255,65,0.2) !important; }
-
+.border-primary\/20 { border-color: rgba(235, 51, 204, 0.2) !important; }

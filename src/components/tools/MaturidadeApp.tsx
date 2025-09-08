@@ -130,8 +130,6 @@ export default function MaturidadeApp() {
 
         <div className="flex items-center justify-center mt-6">
           <div className="flex gap-3">
-            <button id="restartBtn" className="btn-cyber px-4 py-2 rounded" type="button" onClick={() => { /* @ts-ignore */ if (typeof (window as any).restartAssessment === 'function') (window as any).restartAssessment() }}>Reiniciar</button>
-            <button id="shareBtn" className="btn-cyber px-4 py-2 rounded" type="button" onClick={() => { /* @ts-ignore */ if (typeof (window as any).shareResults === 'function') (window as any).shareResults() }}>Compartilhar</button>
             <button id="pdfBtn" className="btn-cyber px-4 py-2 rounded" type="button" onClick={() => { /* @ts-ignore */ if (typeof (window as any).generatePDF === 'function') (window as any).generatePDF() }}>Exportar PDF</button>
           </div>
         </div>
@@ -151,7 +149,7 @@ export default function MaturidadeApp() {
         #domainTabs { justify-content: center; }
         .domain-tab { padding: 10px 14px; border-radius: 8px; background: rgba(13,17,23,0.5); border: 1px solid rgba(255,255,255,0.08); color: var(--text-light); cursor: pointer; transition: all .2s ease; font-weight: 600; }
         .domain-tab:hover { transform: translateY(-2px); border-color: var(--primary); }
-        .domain-tab.active { border-color: var(--primary); box-shadow: 0 0 10px rgba(0,255,65,0.15); }
+        .domain-tab.active { border-color: var(--primary); box-shadow: 0 0 10px rgba(235,51,204,0.15); }
         .domain-tab.completed { position: relative; }
         .domain-tab.completed::after { content: '✔'; color: var(--primary); margin-left: 6px; }
 
@@ -161,7 +159,7 @@ export default function MaturidadeApp() {
         .answer-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 12px; }
         .answer-option { background: rgba(1,4,9,0.8); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 12px; cursor: pointer; display: flex; gap: 10px; align-items: center; transition: all .2s ease; }
         .answer-option:hover { transform: translateY(-2px); border-color: var(--primary); }
-        .answer-option.selected { border-color: var(--primary); box-shadow: 0 0 10px rgba(0,255,65,0.15); }
+        .answer-option.selected { border-color: var(--primary); box-shadow: 0 0 10px rgba(235,51,204,0.15); }
         .answer-value { font-weight: 700; color: var(--primary); width: 28px; text-align: center; }
 
         .domain-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
@@ -252,4 +250,3 @@ export default function MaturidadeApp() {
     </>
   )
 }
-
