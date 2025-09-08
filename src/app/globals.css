@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary: #00ff41;
+  --secondary: #0066cc;
+  --accent: #ff6b35;
+  --dark: #0d1117;
+  --darker: #010409;
+  --text-light: #f0f6fc;
+  --text-muted: #8b949e;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--text-light);
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--dark); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #00cc36; }
+
+/* Glow Effects */
+.glow-primary { box-shadow: 0 0 10px var(--primary); }
+.glow-secondary { box-shadow: 0 0 10px var(--secondary); }
+.glow-accent { box-shadow: 0 0 10px var(--accent); }
+
+/* Button Animations */
+.btn-cyber {
+  position: relative;
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  padding: 12px 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+.btn-cyber::before {
+  content: '';
+  position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.2), transparent);
+  transition: left 0.5s;
+}
+.btn-cyber:hover::before { left: 100%; }
+.btn-cyber:hover { background: rgba(0, 255, 65, 0.1); box-shadow: 0 0 20px var(--primary); transform: translateY(-2px); }
+
+/* Card Styles */
+.card-cyber {
+  background: rgba(13, 17, 23, 0.8);
+  border: 1px solid rgba(0, 255, 65, 0.3);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+.card-cyber:hover { border-color: var(--primary); box-shadow: 0 10px 30px rgba(0, 255, 65, 0.2); transform: translateY(-5px); }
+
+/* Loading Animation */
+.loading-dots::after { content: ''; animation: dots 1.5s steps(5, end) infinite; }
+@keyframes dots { 0%,20%{color:transparent;text-shadow:.25em 0 0 transparent,.5em 0 0 transparent} 40%{color:var(--primary);text-shadow:.25em 0 0 transparent,.5em 0 0 transparent} 60%{text-shadow:.25em 0 0 var(--primary),.5em 0 0 transparent} 80%,100%{text-shadow:.25em 0 0 var(--primary),.5em 0 0 var(--primary)} }
+
+/* Typing Animation */
+.typing-animation { border-right: 3px solid var(--primary); animation: blink-caret 1s step-end infinite; }
+@keyframes blink-caret { from,to { border-color: transparent } 50% { border-color: var(--primary); } }
+
+/* Responsive Design */
+@media (max-width: 768px) { .btn-cyber { padding: 10px 20px; font-size: 14px; } }
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) { .typing-animation, .btn-cyber::before { animation: none; } .card-cyber:hover { transform: none; } }
+
+/* Utility compatibility for variable + opacity combos used in the app */
+.bg-dark\/60 { background-color: rgba(13,17,23,0.6) !important; }
+.border-primary\/20 { border-color: rgba(0,255,65,0.2) !important; }
+
