@@ -7,8 +7,13 @@ export default function Header() {
     <header className="sticky top-0 z-50 backdrop-blur bg-dark/60 border-b border-primary/20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-24 items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            {/* Logo image expected at public/logo.png */}
+          <a
+            href="https://www.pereirapelizzari.tech/"
+            className="flex items-center gap-3 group"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Ir para pereirapelizzari.tech"
+          >
             <Image
               src="/image/logomarca_transp-red.png"
               alt="PP Tech"
@@ -17,8 +22,7 @@ export default function Header() {
               priority
               className="h-24 w-auto object-contain drop-shadow-[0_0_6px_rgba(235,51,204,0.6)] group-hover:drop-shadow-[0_0_10px_rgba(235,51,204,0.8)] transition-shadow"
             />
-            <span className="sr-only">Página inicial</span>
-          </Link>
+          </a>
 
           <nav aria-label="Principal" className="flex items-center gap-6 text-sm text-text-muted">
             {/* Add future links here */}
