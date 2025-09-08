@@ -57,7 +57,7 @@ body {
   transition: left 0.5s;
 }
 .btn-cyber:hover::before { left: 100%; }
-.btn-cyber:hover { background: rgba(0, 255, 65, 0.1); box-shadow: 0 0 20px var(--primary); transform: translateY(-2px); }
+.btn-cyber:hover { background: rgba(235, 51, 204, 0.1); box-shadow: 0 0 20px var(--primary); transform: translateY(-2px); }
 
 /* Card Styles */
 .card-cyber {
