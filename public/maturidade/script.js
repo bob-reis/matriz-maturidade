@@ -1416,7 +1416,7 @@ async function generatePDF() {
         :root { --pink: #EB33CC; --text: #111; --muted: #555; }
         body { font-family: Arial, Helvetica, sans-serif; color: var(--text); background: #ffffff; padding: 28px; }
         header { display: flex; justify-content: center; margin-bottom: 12px; }
-        header img { height: 40px; }
+        header img { height: 120px; }
         h1 { font-size: 22px; margin: 8px 0 4px; }
         h2 { font-size: 16px; margin: 18px 0 8px; color: #222; }
         p, li { font-size: 13px; line-height: 1.55; }

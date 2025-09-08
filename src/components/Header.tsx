@@ -12,10 +12,10 @@ export default function Header() {
             <Image
               src="/image/logomarca_transp.png"
               alt="PP Tech"
-              width={120}
-              height={37}
+              width={200}
+              height={62}
               priority
-              className="h-9 w-auto drop-shadow-[0_0_6px_rgba(235,51,204,0.6)] group-hover:drop-shadow-[0_0_10px_rgba(235,51,204,0.8)] transition-shadow"
+              className="h-12 w-auto object-contain drop-shadow-[0_0_6px_rgba(235,51,204,0.6)] group-hover:drop-shadow-[0_0_10px_rgba(235,51,204,0.8)] transition-shadow"
             />
             <span className="sr-only">Página inicial</span>
           </Link>
