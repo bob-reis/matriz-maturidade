@@ -90,6 +90,10 @@ export default function MaturidadeApp() {
 
       {/* Resultados */}
       <section id="resultsSection" className="hidden mt-10 space-y-8">
+        {/* Logo do relatório (também usada no PDF) */}
+        <div className="flex justify-center">
+          <img src="/image/logomarca_transp.png" alt="PP Tech" className="h-10 w-auto" />
+        </div>
         <div className="card-cyber p-8 rounded text-center">
           <div className="mx-auto w-32 h-32 rounded-full border-2 border-primary flex items-center justify-center glow-primary">
             <span id="scoreValue" className="text-4xl font-bold">-</span>
@@ -126,6 +130,25 @@ export default function MaturidadeApp() {
         <div className="top-gaps">
           <h5 className="font-semibold mb-3">Maiores Gaps</h5>
           <div id="gapsList" className="gaps-list" />
+        </div>
+
+        {/* CTA/rodapé do relatório no app */}
+        <div className="card-cyber p-6 rounded text-center">
+          <p className="text-lg">
+            Quer ver como sua empresa pode sair do nível
+            {' '}<strong id="currentLevelX">-</strong>{' '}para{' '}
+            <strong id="desiredLevelY">-</strong>? Entre em contato.
+          </p>
+          <div className="mt-4">
+            <a
+              href="https://www.pereirapelizzari.tech/contato"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-cyber px-6 py-2 rounded inline-block"
+            >
+              Contato
+            </a>
+          </div>
         </div>
 
         <div className="flex items-center justify-center mt-6">

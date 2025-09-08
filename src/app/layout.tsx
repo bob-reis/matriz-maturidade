@@ -1,9 +1,10 @@
+import './globals.css'
 export const metadata = {
   title: 'Maturidade em Segurança',
   description: 'Avaliação de Maturidade em Segurança da Informação',
 }
 
-import './globals.css'
+import Header from '@/components/Header'
 
 export default function RootLayout({
   children,
@@ -12,8 +13,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body>
+        <Header />
+        <main>{children}</main>
+      </body>
     </html>
   )
 }
-
